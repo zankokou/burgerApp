@@ -1,12 +1,23 @@
-<li>
-	{{burger_name}} {{#if devoured}}
-	<button class="change-burger" data-id="{{id}}" data-new_eaten="{{devoured}}">
+
+<div class='row'>
+	<button disabled class='col burgers btn btn-secondary'>
+		{{burger_name}}
+
+	</button>
+
+	{{#if devoured}}
+
+	<button class="col btn btn-warning eat change-burger" data-id="{{id}}" data-new_eaten="{{devoured}}">
 		EAT THE BURGER!
 	</button>
 	{{else}}
-	<button class="change-burger" data-id="{{id}}" disabled data-new_eaten="{{devoured}}">
+	<button class="col btn btn-warning eat change-burger" data-id="{{id}}" disabled data-new_eaten="{{devoured}}">
 		DELICIOUS!
 	</button>
-	{{/if}}
-	{{!-- <button class="delete-burger" data-id="{{this.id}}">DELETE!</button> --}}
-</li>
+	
+	{{!-- <button class="col delete-burger" data-id="{{this.id}}">X</button>  --}}
+	{{/if}} 
+	
+	{{!-- end of row --}} 
+	</div>
+	 {{!-- end of row --}}

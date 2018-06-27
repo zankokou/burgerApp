@@ -17,3 +17,24 @@ li {
 .form-group {
   margin-bottom: 5px;
 }
+
+.burgerTop{
+  text-align: center;
+
+}
+.toonBurger{
+  text-align: center;
+  height: 180px;
+
+}
+.jumbotron{
+  border: 2px red solid;
+}
+
+.burgers{
+  margin: 5px;
+}
+
+.eat{
+  margin: 5px;
+}
