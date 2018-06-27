@@ -1,9 +1,12 @@
 <li>
-	{{burger_name}}
-
-	<button class="change-sleep" data-id="{{id}}" data-newsleep="{{sleep}}">
-		{{#if sleep}}SLEEP TIME!{{else}}WAKE UP!{{/if}}
+	{{burger_name}} {{#if devoured}}
+	<button class="change-burger" data-id="{{id}}" data-new_eaten="{{devoured}}">
+		EAT THE BURGER!
 	</button>
-
-	<button class="delete-cat" data-id="{{this.id}}">DELETE!</button>
+	{{else}}
+	<button class="change-burger" data-id="{{id}}" disabled data-new_eaten="{{devoured}}">
+		DELICIOUS!
+	</button>
+	{{/if}}
+	{{!-- <button class="delete-burger" data-id="{{this.id}}">DELETE!</button> --}}
 </li>
