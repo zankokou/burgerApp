@@ -1,40 +1,25 @@
-li {
-  padding: 5px;
-  margin: 5px;
-  background: #faebd7;
+.nav-item{
+  margin-left: 5px;
 }
 
-.label {
-  font-weight: bold;
+.nav-link{
+  max-width: 100%;
 }
 
-.create-update-form {
-  padding: 5px;
-  margin: 5px;
-  background: aqua;
+.title{
+  background-image: url('./snowman.jpg');
+  background-size: cover;
+  /* height: 500px; */
+  color: white;
+  padding: 200px
 }
 
-.form-group {
-  margin-bottom: 5px;
-}
-
-.burgerTop{
-  text-align: center;
-
-}
-.toonBurger{
-  text-align: center;
-  height: 180px;
-
-}
-.jumbotron{
-  border: 2px red solid;
-}
-
-.burgers{
-  margin: 5px;
-}
-
-.eat{
-  margin: 5px;
+.title-text{
+  font-weight: 800;
+  font-size: 48px;
+  text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+		1px 1px 0 #000;
 }
