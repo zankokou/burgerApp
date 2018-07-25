@@ -3,8 +3,6 @@ var request = require("request");
 var cheerio = require("cheerio");
 var axios = require('axios');
 // Requiring our Note and Article models
-// var Note = require("../models/Note.js");
-// var Article = require("../models/Article.js");
 
 var db = require("../models");
 
@@ -58,8 +56,10 @@ module.exports = function (app) {
 
 
     // Route for getting all Articles from the db
-    app.get("/articles", function (req, res) {
-        db.Article.find({}).then(function (dbArticle) {
+    app.get("/api/articles", function (req, res) {
+        db.Article.find({
+            'saved': false
+        }).then(function (dbArticle) {
             res.json(dbArticle)
 
         }).catch(function (err) {
@@ -69,11 +69,93 @@ module.exports = function (app) {
 
     });
 
-
-    app.get("/saved", function (req, res) {
-        res.render('saved')
+    //route to save an article
+    app.get("/api/articles/:id/save", function (req, res) {
+        var id = req.params.id;
+        db.Article.find({
+                '_id': id
+            }).update({
+                'saved': true
+            })
+            .then(function () {
+                res.redirect('/');
+                console.log('saved article')
+            }).catch(function (err) {
+                // If an error occurred, send it to the client
+                return res.json(err);
+            });
 
     });
 
+    // app.post("/api/articles/:id/save", function (req, res) {
+    //     var id = req.params.id;
+    //     db.Article.find({
+    //             '_id': id
+    //         }).update({
+    //             'saved': true
+    //         })
+    //         .then(function () {
+    //             res.redirect('/');
+    //             alert('Article Saved')
+
+    //             console.log('saved article')
+    //         }).catch(function (err) {
+    //             // If an error occurred, send it to the client
+    //             return res.json(err);
+    //         });
+
+    // });
+
+
+    // route to unsave an article
+    app.get("/api/articles/:id/unsave", function (req, res) {
+        var id = req.params.id;
+        db.Article.find({
+                '_id': id
+            }).update({
+                'saved': false
+            })
+            .then(function () {
+                res.redirect('/saved');
+                // console.log('saved article')
+            }).catch(function (err) {
+                // If an error occurred, send it to the client
+                return res.json(err);
+            });
+
+    });
+
+    // route to show saved articles page
+    app.get("/saved", function (req, res) {
+        res.render('saved');
+    });
+
+    // api route for saved articles
+    app.get("/api/saved", function (req, res) {
+        db.Article.find({
+            saved: true
+        }).then(function (dbArticle) {
+            res.json(dbArticle)
+        }).catch(function (err) {
+            // If an error occurred, send it to the client
+            return res.json(err);
+        });
+
+    });
+
+
+
+    // clear articles route
+    app.post("/api/articles/clear", function (req, res) {
+        db.Article.find({'saved':false}).remove()
+            .then(function () {
+                res.redirect('/');
+                // alert('All Articles Removed')
+            }).catch(function (err) {
+                // If an error occurred, send it to the client
+                return res.json(err);
+            });
+
+    });
 
 };
