@@ -54,7 +54,6 @@ module.exports = function (app) {
     });
 
 
-
     // Route for getting all Articles from the db
     app.get("/api/articles", function (req, res) {
         db.Article.find({
@@ -86,26 +85,6 @@ module.exports = function (app) {
             });
 
     });
-
-    // app.post("/api/articles/:id/save", function (req, res) {
-    //     var id = req.params.id;
-    //     db.Article.find({
-    //             '_id': id
-    //         }).update({
-    //             'saved': true
-    //         })
-    //         .then(function () {
-    //             res.redirect('/');
-    //             alert('Article Saved')
-
-    //             console.log('saved article')
-    //         }).catch(function (err) {
-    //             // If an error occurred, send it to the client
-    //             return res.json(err);
-    //         });
-
-    // });
-
 
     // route to unsave an article
     app.get("/api/articles/:id/unsave", function (req, res) {
@@ -153,6 +132,41 @@ module.exports = function (app) {
                 // alert('All Articles Removed')
             }).catch(function (err) {
                 // If an error occurred, send it to the client
+                return res.json(err);
+            });
+
+    });
+
+    // get articles individually
+    app.get("/api/articles/:id", function (req, res) {
+        var id = req.params.id;
+        // console.log(id);
+        db.Article.find({
+            '_id': id
+          }).populate('notes')
+          .then(function (dbArticle) {
+            res.json(dbArticle)
+      
+          }).catch(function (err) {
+            // If an error occurred, send it to the client
+            return res.json(err);
+          });
+      
+      });
+      
+
+    //route to add notes to articles
+    app.post("/api/articles/:id/addNote", function (req, res) {
+        var id = req.params.id;
+        console.log(req)
+        db.Article.find({
+                '_id': id
+            }).update({
+                'note': req.body.note
+            })
+            .then(function () {
+                res.redirect('/');
+            }).catch(function (err) {
                 return res.json(err);
             });
 
